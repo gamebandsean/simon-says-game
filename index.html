@@ -705,7 +705,7 @@
                 // Listen for player 2 joining
                 gameListener = onSnapshot(doc(db, 'games', roomCode), (docSnap) => {
                     const data = docSnap.data();
-                    if (data && data.player2 && !data.gameStarted) {
+                    if (data && data.player2 && data.gameStarted) {
                         startGame();
                     }
                 });
@@ -1331,7 +1331,7 @@
                 // Listen for player 2 joining
                 gameListener = onSnapshot(doc(db, 'games', roomCode), (docSnap) => {
                     const data = docSnap.data();
-                    if (data && data.player2 && !data.gameStarted) {
+                    if (data && data.player2 && data.gameStarted) {
                         startGame();
                     }
                 });
