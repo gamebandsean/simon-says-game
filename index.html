@@ -495,7 +495,7 @@
                 document.getElementById('takeTurnBtn').style.display = 'block';
                 document.getElementById('gameMessage').textContent = 'Your turn! Click TAKE TURN when ready.';
 }
-            } else if (!isMyTurnNow && isMyTurn) {
+            else if (!isMyTurnNow && isMyTurn) {
                 // It's no longer my turn
                 isMyTurn = false;
                 disableButtons();
