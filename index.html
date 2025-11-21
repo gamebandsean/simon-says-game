@@ -227,7 +227,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>🎮 Simon Says MP</h1>
+       <h1>Simon 2: The Revenge</h1>
         
         <!-- Main Menu Screen -->
         <div class="screen active" id="menuScreen">
@@ -280,8 +280,7 @@
 
                 <div class="message" id="gameMessage">Watch the sequence...</div>
 
-                <button class="btn" id="takeTurnBtn" onclick="takeTurn()" style="display: none;">TAKE TURN</button>
-
+                <button class="btn" id="takeTurnBtn" onclick="takeTurn()" style="display: none; margin: 20px auto;">TAKE TURN</button>
                 <div class="game-board">
 
                 <div class="game-board">
@@ -291,7 +290,8 @@
                     <div class="button disabled" id="blue" data-color="blue"></div>
                 </div>
 
-                <button class="btn btn-secondary" onclick="leaveGame()">Leave Game</button>
+                <button class="btn btn-secondary" onclick="leaveGame()" style="display: block; margin: 20px auto;">Leave Game</button>
+
             </div>
         </div>
 
@@ -538,8 +538,13 @@
         }
 
         async function playSequence(sequence) {
-            disableButtons();
-            document.getElementById('gameMessage').textContent = 'Watch carefully...';
+    disableButtons();
+    
+            if (sequence.length === 0) {
+                document.getElementById('gameMessage').textContent = 'Press a button!';
+            } else {
+                document.getElementById('gameMessage').textContent = 'Watch carefully...';
+            }
             
             await new Promise(resolve => setTimeout(resolve, 500));
             
