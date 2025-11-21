@@ -540,8 +540,8 @@
         }
 
         async function playSequence(sequence) {
-    disableButtons();
-    
+            disableButtons();
+            
             if (sequence.length === 0) {
                 document.getElementById('gameMessage').textContent = 'Press a button!';
             } else {
@@ -550,9 +550,16 @@
             
             await new Promise(resolve => setTimeout(resolve, 500));
             
+            // Calculate delay: starts at 400ms, decreases by 5% each turn, minimum 50ms
+            const baseDelay = 400;
+            const decreaseRate = 0.95;
+            const minDelay = 50;
+            const calculatedDelay = baseDelay * Math.pow(decreaseRate, sequence.length - 1);
+            const delay = Math.max(minDelay, calculatedDelay);
+            
             for (let color of sequence) {
                 await lightUp(color, 400);
-                await new Promise(resolve => setTimeout(resolve, 200));
+                await new Promise(resolve => setTimeout(resolve, delay));
             }
             
             document.getElementById('gameMessage').textContent = 'Your turn! Repeat and add one.';
