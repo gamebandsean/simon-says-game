@@ -276,13 +276,10 @@
                     <p>Sequence Length: <span class="highlight" id="sequenceLength">0</span></p>
                 </div>
 
-                <div class="message" id="gameMessage">Watch the sequence...</div>
-
-                <div class="message" id="gameMessage">Watch the sequence...</div>
+                <div class="message" id="gameMessage"></div>
 
                 <button class="btn" id="takeTurnBtn" onclick="takeTurn()" style="display: none; margin: 20px auto;">TAKE TURN</button>
-                <div class="game-board">
-
+                
                 <div class="game-board">
                     <div class="button disabled" id="green" data-color="green"></div>
                     <div class="button disabled" id="red" data-color="red"></div>
@@ -290,8 +287,9 @@
                     <div class="button disabled" id="blue" data-color="blue"></div>
                 </div>
 
-                <button class="btn btn-secondary" onclick="leaveGame()" style="display: block; margin: 20px auto;">Leave Game</button>
-
+                <div style="text-align: center;">
+                    <button class="btn btn-secondary" onclick="leaveGame()">Leave Game</button>
+                </div>
             </div>
         </div>
 
