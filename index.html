@@ -552,7 +552,7 @@
             
             // Calculate delay: starts at 400ms, decreases by 5% each turn, minimum 50ms
             const baseDelay = 400;
-            const decreaseRate = 0.95;
+            const decreaseRate = 0.90;
             const minDelay = 50;
             const calculatedDelay = baseDelay * Math.pow(decreaseRate, sequence.length - 1);
             const delay = Math.max(minDelay, calculatedDelay);
