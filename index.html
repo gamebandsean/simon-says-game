@@ -276,6 +276,12 @@
 
                 <div class="message" id="gameMessage">Watch the sequence...</div>
 
+                <div class="message" id="gameMessage">Watch the sequence...</div>
+
+                <button class="btn" id="takeTurnBtn" onclick="takeTurn()" style="display: none;">TAKE TURN</button>
+
+                <div class="game-board">
+
                 <div class="game-board">
                     <div class="button disabled" id="green" data-color="green"></div>
                     <div class="button disabled" id="red" data-color="red"></div>
@@ -332,6 +338,7 @@
         let gameListener = null;
         let playerSequence = [];
         let isMyTurn = false;
+        let waitingForTakeTurn = false;  
 
         // Make functions globally available
         window.showMenu = showMenu;
@@ -340,6 +347,14 @@
         window.createRoom = createRoom;
         window.joinRoom = joinRoom;
         window.leaveGame = leaveGame;
+        window.takeTurn = async function() {
+        waitingForTakeTurn = false;
+        document.getElementById('takeTurnBtn').style.display = 'none';
+        const gameRef = doc(db, 'games', currentRoom);
+        const gameSnap = await getDoc(gameRef);
+        const gameData = gameSnap.data();
+        await playSequence(gameData.sequence);
+};
 
         function showScreen(screenId) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -348,6 +363,7 @@
 
         function showMenu() {
             if (gameListener) gameListener();
+            document.getElementById('takeTurnBtn').style.display = 'none';
             currentRoom = null;
             playerNumber = null;
             showScreen('menuScreen');
@@ -470,11 +486,15 @@
 
             const isMyTurnNow = data.currentTurn === playerNumber;
             
-            if (isMyTurnNow && !isMyTurn) {
+           if (isMyTurnNow && !isMyTurn) {
                 // It just became my turn
                 isMyTurn = true;
                 playerSequence = [];
-                await playSequence(data.sequence);
+                waitingForTakeTurn = true;
+                disableButtons();
+                document.getElementById('takeTurnBtn').style.display = 'block';
+                document.getElementById('gameMessage').textContent = 'Your turn! Click TAKE TURN when ready.';
+}
             } else if (!isMyTurnNow && isMyTurn) {
                 // It's no longer my turn
                 isMyTurn = false;
