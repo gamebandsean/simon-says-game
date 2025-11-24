@@ -140,18 +140,37 @@
             max-width: 400px;
         }
 
-       .button {
+        @keyframes squashStretch {
+            0% {
+                transform: scale(1, 1);
+            }
+            25% {
+                transform: scale(1.15, 0.85);
+            }
+            50% {
+                transform: scale(0.9, 1.1);
+            }
+            75% {
+                transform: scale(1.05, 0.95);
+            }
+            100% {
+                transform: scale(1, 1);
+            }
+        }
+
+        .button {
             aspect-ratio: 1;
             width: 100%;
-            min-height: 150px;  /* ADD THIS */
+            min-height: 150px;
             border-radius: 20px;
             cursor: pointer;
-            transition: all 0.1s ease;
+            transition: filter 0.1s ease, box-shadow 0.1s ease;
             border: 5px solid rgba(0, 0, 0, 0.3);
+            transform-origin: center center;
         }
 
         .button:active {
-            transform: scale(0.95);
+            animation: squashStretch 0.25s ease-out;
         }
 
         .button.disabled {
@@ -177,8 +196,8 @@
 
         .button.active {
             filter: brightness(1.5);
-            transform: scale(1.05);
             box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+            animation: squashStretch 0.3s ease-out;
         }
 
         .message {
